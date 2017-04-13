@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<canvas width="800" height="600"></canvas>
+
+<script>
+    function rabbit(options) {
+        extend(this, {    // 传入指定参数及默认参数
+            direction: 0,
+            frame: 0,
+            x: 0,
+            y: 0,
+            img:new Image(),
+            timer:null
+        }, options);
+        this.draw();        
+        this.event();
+    }
+
+   function extend(target) {
+        if (!target) {
+            return null;
+        }
+        for (var i = 1; i < arguments.length; i++) {
+            var obj = arguments[i];
+            for (var k in obj) {
+                if (obj.hasOwnProperty(k)) {
+                    target[k] = obj[k];
+                }
+            }
+
+        }
+    }
+
+    rabbit.prototype = {
+        constructor: rabbit,
+
+        // 清除画布
+        clear: function () {
+            var ctx = this.context;
+            var cw = ctx.canvas.width;   // canvas宽
+            var ch = ctx.canvas.height;  // canvas高
+//            ctx.clearRect(0, 0, cw, ch);
+            // 残影 通过覆盖白色透明画布来实现残影
+            ctx.fillStyle = "rgba(255,255,255,0.2)";
+            ctx.fillRect(0,0,cw,ch);     
+        },
+
+        // 绘图 将图片在canvas进行绘制
+        draw: function () {
+            var ctx = this.context;
+            var _this = this;   // 存储this指向
+            this.clear();   //清除画布
+            this.img.src = this.imgSrc;
+            this.img.onload = function () {
+            	// 获取图片制定位置内容并绘制在canvas中
+                ctx.drawImage(_this.img, _this.frame % 4 * _this.width, _this.direction * _this.height, _this.width, _this.height, _this.x, _this.y, _this.width, _this.height);
+            }
+        },
+
+       // 更新当前动画的位置及边界处理
+        update: function () {
+            var ctx = this.context;
+            var cw = ctx.canvas.width;
+            var ch = ctx.canvas.height;
+            this.frame++;   // 计步器，使每一帧动画的图片内容进行变化，再进行绘制，达到运动效果
+            switch (this.direction) {
+                case 0:
+                    if (this.y >= ch) {
+                        this.y = -10;   
+                    }
+                    this.y += this.step;
+                    break;
+                case 1:
+                    if (this.x - this.width <= 0) {
+                        this.x = cw + 10;
+                    }
+                    this.x -= this.step;
+                    break;
+                case 2:
+                    if (this.x >= cw) {
+                        this.x = -10;
+                    }
+                    this.x += this.step;
+                    break;
+                case 3:
+                    if (this.y - this.height <= 0) {
+                        this.y = ch + 10;
+                    }
+                    this.y -= this.step;
+            }
+        },
+        // 绑定事件  通过键盘控制方向
+        event: function () {
+            var _this = this;
+            document.onkeydown = function (e) {
+                console.log(e.keyCode);     // 获取键盘对应值
+                var keyCode = e.keyCode;
+                if(keyCode == 32){         // 通过空格控制动画的启停状态
+                    if(_this.timer){         // 通过timer属性值来判断当前动画是否进行中
+                       _this.stop();        // 执行停止方法
+                    }else {                       
+                        _this.start();          // 继续动画
+                    }
+                }
+
+                    if(!_this.timer){    // 当暂停时不执行改变方向的代码
+                        return;
+                    }
+                        switch (keyCode) {
+                            case 38: // up
+                            case 87:
+                                _this.direction = 3;
+                                break;
+                            case 39: // right
+                            case 68:
+                                _this.direction = 2;
+                                break;
+                            case 40: // down
+                            case 83:
+                                _this.direction = 0;
+                                break;
+                            case 37: // left
+                            case 65:
+                                _this.direction = 1;
+                                break;
+                        }
+
+            }
+        },
+        start: function () {
+            var _this = this;
+
+            this.timer = setInterval(function () {     // 开启定时器，重复进行动画的更新及绘制
+                _this.update();
+                _this.draw();
+            }, 100);
+        },
+        stop: function () {        // 清除定时器
+            clearInterval(this.timer);
+            this.timer = null;   // 为了下次可以点击空格键可以开始
+        }
+    }
+
+
+
+// 动画的调用
+    new rabbit({       
+        imgSrc:'imgs/TANK-SDDR_2.png',
+        context:document.querySelector("canvas").getContext("2d"),
+        step:5,
+        width:50,          // 动画图片的四分之一宽
+        height:75         // 动画图片的四分之一高
+    })
+</script>
+</body>
+</html>
