@@ -10,7 +10,7 @@ var concat = require('gulp-concat'); // 合并
 var cssnano = require('gulp-cssnano'); //压缩css
 var concatcss = require('gulp-concat-css'); //合并css
 // var htmlmin = require('gulp-htmlmin');  
-var htmlminify = require('gulp-html-minify');  // 压缩html  比老师讲的那个方便，不用传参
+var htmlminify = require('gulp-html-minify');  // 压缩html  比上面的那个方便，不用传参
 var useref = require('gulp-useref');  // css  js 文件合并后的引入修改
 
 
