@@ -16,7 +16,7 @@ var useref = require('gulp-useref');  // css  js 文件合并后的引入修改
 
 gulp.task('js',function(){
 	gulp.src(['./js/*.js'],{base:'.'})
-	// .pipe(uglify())
+	.pipe(uglify())
 	.pipe(concat('/js/all.js'))   // dist 下的js下的all.js文件
 	.pipe(gulp.dest('dist'))
 })
@@ -37,4 +37,56 @@ gulp.task('html',function(){
 })
 
 // 多个任务执行方式
-gulp.task('default',['js','css','html']);
+gulp.task('default',['js', 'html', 'css']);
+
+// gulp.task('default', function() {
+//     //监视src下的文件如果发生改变，重新执行打包任务,需要执行gulp后更改文件生效
+//     gulp.watch('./src/**/*.*', ['js', 'html', 'css']);
+// });
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+//声明清除目录的任务
+// 存在异步的问题，需要声明依赖并且要有return
+var gulp = require('gulp');
+//js
+var concat = require('gulp-concat');
+var uglify = require('gulp-uglify');
+//css
+var cssnano = require('gulp-cssnano');
+//html useref
+var useref = require('gulp-useref');
+//htmlmin
+var htmlmin = require('gulp-htmlmin');
+//清除目录数据
+var clean = require('gulp-clean');
+//处理css任务
+gulp.task('css', ['js'], function() {
+    return gulp.src('./src/css/*.css', { base: './src' })
+        .pipe(cssnano())
+        .pipe(gulp.dest('dist')) 
+});
+gulp.task('js', ['html']
+, function() {
+    return gulp.src('./src/js/*.js') 
+        .pipe(uglify())
+        .pipe(concat('js/all.js'))
+
+    .pipe(gulp.dest('dist'))
+});
+//
+gulp.task('html', ['clean'], function() {
+    return gulp.src('./src/index.html', { base: './src' })
+        .pipe(useref()) 
+        .pipe(htmlmin({ collapseWhitespace: true, minifyCSS: true, minifyJS: true })) 
+        .pipe(gulp.dest('dist'))
+});
+//声明清除目录的任务
+gulp.task('clean', function() {
+    return gulp.src('./dist')
+        .pipe(clean());
+})
+
+//默认任务
+gulp.task('default', ['css'], function() {
+    console.log('default任务执行了');
+})
