@@ -1,1 +1,0 @@
-function  hehe(sdfsdaf){alert(sdfsdaf);}console.log("hehe");

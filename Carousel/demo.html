@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	*{
+		margin: 0;
+		padding: 0;
+	}
+		#pic {
+			margin:0 auto;
+			width: 730px;
+			height: 336px;
+		}
+		ul {
+			margin: 0;padding: 0;
+		}
+		li {
+			list-style: none;
+		}
+	</style>
+</head>
+<body>
+	11
+	<div id="pic">
+	</div>
+
+
+
+	<script src="./jquery-1.12.4.min.js"></script>
+	<script src="./Carousel2.js"></script>
+	<script>
+	 $.ajax({
+	 	type:'get',
+	 	url:'./1.json',
+	 	success:function(res){
+	 		console.log(res)
+	 		$('#pic').Carousel({datas:res,
+	 		    little:{ // 小点样式
+	 		    	"width":"18px",
+	 				"height":"18px",
+	 				"borderRadius":"9px",
+	 				"margin": "10px",
+	 		    },
+	 		    arr:{  //左右按钮css样式
+	 		    	backgroundColor:"red"
+	 		    }
+	 		});
+	 	},
+	 	error:function(error){
+	 		console.log('error')
+	 	}
+	 })
+
+
+	</script>
+</body>
+</html>
