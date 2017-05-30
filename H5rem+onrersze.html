@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .box{
+      /*width: 16/32*rem*/
+      width:1rem;
+      height:1rem;
+      background-color: red;
+    }
+  .box1{
+      /*width: 16/32*rem*/
+      width:100px;
+      height:100px;
+      background-color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="box"></div>
+  <div class="box1"></div>
+  <script>
+
+      // rem + resize 布局
+      setFont();
+      window.onresize = setFont;
+      function setFont() {
+          var clientWidth = document.body.clientWidth;  // 适配的时候就不用媒体查询了
+          if(clientWidth>=640){
+            document.querySelector("html").style.fontSize = "100px";   
+          }
+          document.querySelector("html").style.fontSize = 100 * (clientWidth / 640)+"px";   // 640的图时，尺寸取实际尺寸除以100rem
+      }
+  </script>
+</body>
+</html>
