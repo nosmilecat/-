@@ -6,6 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
   <style>
+  *{
+  	margin: 0;
+  	padding: 0;
+  }
     .box{
       /*width: 16/32*rem*/
       width:1rem;
@@ -26,15 +30,17 @@
   <script>
 
       // rem + resize 布局
-      setFont();
-      window.onresize = setFont;
+      window.addEventListener("resize",setFont);
+      window.addEventListener("orientationchange",setFont);
       function setFont() {
           var clientWidth = document.body.clientWidth;  // 适配的时候就不用媒体查询了
           if(clientWidth>=640){
             document.querySelector("html").style.fontSize = "100px";   
           }
-          document.querySelector("html").style.fontSize = 100 * (clientWidth / 640)+"px";   // 640的图时，尺寸取实际尺寸除以100rem
+          document.querySelector("html").style.fontSize = 100 * (clientWidth / 640)+"px";   // 640的图时，尺寸取实际尺寸除以100+rem
       }
+      setFont();
+
   </script>
 </body>
 </html>
