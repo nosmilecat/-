@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="jquery-1.8.3.min.js" type="text/javascript"></script>
+    <script src="node_modules/handlebars/dist/handlebars.min.js"></script>
+    <style type="text/css">
+
+    </style>
+    <title></title>
+</head>
+
+<body>
+    <script type="text/template" id="mytemplate">
+        {{#compare code '==' '2'}}
+        <div>
+            {{#each data}}
+            <span>{{this}}</span> {{/each}}
+        </div>
+        {{else}} haha {{/compare}}
+    </script>
+    <script>
+    // 自定义比较
+    Handlebars.registerHelper('compare', function(left, operator, right, options) {
+        if (arguments.length < 3) {
+            throw new Error('Handlerbars Helper "compare" needs 2 parameters');
+        }
+        var operators = {
+            '==': function(l, r) {
+                return l == r;
+            },
+            '===': function(l, r) {
+                return l === r;
+            },
+            '!=': function(l, r) {
+                return l != r;
+            },
+            '!==': function(l, r) {
+                return l !== r;
+            },
+            '<': function(l, r) {
+                return l < r;
+            },
+            '>': function(l, r) {
+                return l > r;
+            },
+            '<=': function(l, r) {
+                return l <= r;
+            },
+            '>=': function(l, r) {
+                return l >= r;
+            },
+            'typeof': function(l, r) {
+                return typeof l == r;
+            }
+        };
+
+        if (!operators[operator]) {
+            throw new Error('Handlerbars Helper "compare" doesn\'t know the operator ' + operator);
+        }
+
+        var result = operators[operator](left, right);
+
+        if (result) {
+            return options.fn(this);
+        } else {
+            return options.inverse(this);
+        }
+    });
+
+
+    var obj = {
+        code: 1,
+        data: ['test', 'ha', 'e']
+    };
+    var source = $('#mytemplate').html();
+    var template = Handlebars.compile(source)(obj);
+    $(document).find('body').append(template);
+    </script>
+</body>
+
+</html>
