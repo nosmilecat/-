@@ -1,109 +1,108 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
-    <style>
-    *{
-        margin:0;
-        padding: 0;
-    }
-
-        div {
-            overflow-x:hidden;  /* 隐藏滚动条   */
-        }
-        table {
-            width: 100%;
-            text-align: center;
-        }
-        thead{
-            display: block;
-            width: 100%;
-        }
-        th,td {
-            min-width: 340px;  /* 不让滚动条影响偏移，对齐的关键  */
-        }
-        tbody {
-            display: block;
-            max-height: 200px;
-            overflow-y: auto;
-        }
-    </style>
+    <title></title>
 </head>
 <body>
-    <div>
-        <table>
-        <thead>
-            <tr>
-                <th>1</th>
-                <th>2</th>
-                <th>3</th>
-                <th>4</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-            </tr>
-        </tbody>
-    </table>
+<style>
+    *{
+        margin:0;
+        padding:0;
+    }
+    .cloud-right th{
+        background: #03adf5;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        color: #fff;
+    }
+    .cloud-right td{
+        text-align: center;
+        height: 30px;
+        line-height: 30px;
+    }
+    .table-wrap{
+        width: 1327px;
+        background: #03adf5;
+        font-size: 12px;
+        border:1px solid #eaedf1;
+    }
+    .table-header-wrap{
+        width: 100%;
+    }
+    .table-header-wrap table{
+        width: 1317px;
+    }
+    .table-body-wrap{
+        height: 120px;
+        overflow: scroll;
+        overflow-x: hidden;
+        background: #fff;
+    }
+    .table-body-wrap table{
+        width: 1310px;
+    }
+    /*滚动条垂直方向的宽度*/
+    ::-webkit-scrollbar
+    {
+        width: 8px;
+    }
+    /* 垂直滚动条的滑动块 */
+    ::-webkit-scrollbar-thumb:vertical {
+        border-radius: 4px;
+        background-color:#e3e3e3;
+    }
+</style>
+<div class="cloud-right">
+    <div class="table-wrap">
+        <div class="table-header-wrap">
+            <table>
+                <col width="33.3%"></col>
+                <col width="33.3%"></col>
+                <col width="33.3%"></col>
+                <tr>
+                    <th>订阅清单</th>
+                    <th>订阅方式</th>
+                    <th>订阅清单</th>
+                </tr>
+            </table>
+        </div>
+        <div class="table-body-wrap">
+            <table>
+                <col width="33.3%"></col>
+                <col width="33.3%"></col>
+                <col width="33.3%"></col>
+                <tbody>
+                <tr>
+                    <td>省人社清单</td>
+                    <td> 接口、前置机</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>省人社清单</td>
+                    <td> 接口、前置机</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>省人社清单</td>
+                    <td> 接口、前置机</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>省人社清单</td>
+                    <td> 接口、前置机</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>省人社清单</td>
+                    <td> 接口、前置机</td>
+                    <td>20</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
+</div>
 </body>
 </html>
